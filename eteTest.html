@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="./jquery.ete.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//1. E.T. call, template is not cached yet...
+				var templ = $('script#template').ete({
+					callbefore: function(){ 
+						$('#firstTarget').append('<img src="./processing.gif">');
+					},
+					callback: function(sel, template){ 
+						setTimeout("$('#firstTarget').replaceWith('"+template+"');", 2000);  //Display template with short delay, to demonstrate callBefore  and callback function...
+						return(template)				
+					}, 
+					data: {	caption: '1. Space-Taxi Timetable (1.1.1982):',
+							table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+												new Array('Alan' 				,6			,''			,''			,''			,22		),
+												new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+												new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
+												new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
+					}
+				});
+				alert(templ);
+				
+				//2. E.T. call, load template from cache and feed with different data...
+				$('script#template').ete({
+					callback: function(sel, template){ $('#secondTarget').append(template); }, 
+					data: {	uselessStuff: '!!!UNREFERENCED/NOT USED VARIABLES WITHIN THE TEMPLATE WILL BE IGNORED!!!',
+							caption: '2. Space-Taxi Timetable (2.1.1982):',
+							table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+												new Array('Alan' 				,3			,''			,''			,''			,19		),
+												new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+												new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		))
+					}
+				});
+				
+				//3. E.T. call,  do not cache compiled template...
+				$('#thirdTarget').ete({
+					cache: false,
+					data: {	caption: '3. Space-Taxi Timetable (3.1.1982):',
+							table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+												new Array('Alan' 				,6			,''			,''			,''			,22		),
+												new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+												new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
+												new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
+					}
+				});
+				
+				//4. E.T. call,  trigger ajax request and inject compiled template into DOM...
+				jQuery.ajax({
+					url: 'ete.json',
+					dataType: 'json',
+					success: function(ajaxData){
+						$('#fourthTarget').ete({
+							debug: function(log){
+								if(log.majorSequenceNo == 7 && (log.minorSequenceNo == 1 || log.minorSequenceNo == 2)){ //Notify when sequence/step 6 (execute  template function...) has been reached...
+									var msg = log.message + '\n';
+									if(log.data)
+										msg += log.data;
+									alert(msg);
+								}
+							},
+							data: ajaxData
+						});
+					},
+					error: function(error){ alert('Error occured: '+error); } 
+				});
+			});
+		</script>
+	  
+		<script type="text/xml" id="template">
+			<h2> 
+				<!-- template += data['caption']; --> 
+			</h2>
+			<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
+				<table class="tablesorter">
+					<thead><tr class="bubbleBoxTable"><th><b>No.</b></th><th><b>Distance (km):</b></th><th><b>Rating:</b></th><th><b>Address:</b></th><th><b>Jump</b></th><th><b>Directions</b></th></tr></thead>
+					<tbody>
+						<!--/* Any kind of embedded javascript is possible... */-->
+						<!-- for(var i = 0; i < data['table'].length; ++i){ -->
+							<tr>
+								<td> <!-- template += (i+1) ; --> </td>
+								<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+									<td>
+										<!-- if(data['table'][i][j] != '' && data['table'][i][j] != null){
+											template += data['table'][i][j];
+										}else{  -->
+											<b>Stop on request</b>
+										<!-- } -->
+									</td>
+								<!-- } -->
+							</tr>
+						<!-- } -->
+					</tbody>
+				</table>
+			</div>
+		</script>
+	</head>
+
+	<body style="background:url(./et.jpg);background-attachment:fixed;background-repeat: no-repeat;">
+		<p id="firstTarget"></p>
+		
+		<p id="secondTarget"></p>
+		
+		<script type="text/xml" id="thirdTarget">
+			<div>
+				<h2><!--template += data['caption'];--></h2>
+				<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
+					<table class="tablesorter">
+						<thead>
+							<tr class="bubbleBoxTable"><th><b>No.</b></th><th><b>Distance (km):</b></th><th><b>Rating:</b></th><th><b>Address:</b></th><th><b>Jump</b></th><th><b>Directions</b></th></tr>
+						</thead>
+						<tbody>
+							<!-- for(var i = 0; i < data['table'].length; ++i){ -->
+								<!-- if((i+1) % 2 == 0){ //Red color for every 2nd line...-->
+								<tr style="color:red">
+									<td> <!-- template += (i+1) ; --> </td>
+									<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+									<td>
+										<!-- if(data['table'][i][j] != '' && data['table'][i][j] != null){
+											template += data['table'][i][j];
+										}else{  -->
+											<b>Stop on request</b>
+										<!-- } -->
+									</td>
+									<!-- } -->
+								</tr>
+								<!--}else{  -->
+								<tr style="color:green">
+									<td> <!-- template += (i+1) ; --> </td>
+									<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+									<td>
+										<!-- if(data['table'][i][j] != '' && data['table'][i][j] != null){
+											template += data['table'][i][j];
+										}else{  -->
+											<b>Stop on request</b>
+										<!-- } -->
+									</td>
+									<!-- } -->
+								</tr>
+								<!-- } -->
+							<!-- } -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</script>
+		
+		<div id="fourthTarget" style="display:none">
+			<div onclick="alert('#!-- if(data['caption'].length &gt; 0){ template+= data['caption']; }else{ template+= 'Empty caption!'; } --#');">
+				<h2> <!-- template += data['caption']; --> </h2>
+				<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
+					<table class="tablesorter">
+						<thead>
+							<tr class="bubbleBoxTable">
+							<!-- for(var i = 0; i < data['th'].length; ++i){ -->
+								<th><b><!--template += data['th'] [i]--></b></th>
+							<!-- } -->
+							</tr>
+						</thead>
+						<tbody>
+						<!-- for(var i = 0; i < data['table'].length; ++i){ -->
+							<!-- if((i+1) % 5 == 0){-->
+							<tr style="color: red;">
+								<td> <!-- template += (i+1) ; --> </td>
+								<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+								<td>
+									<!-- if(data['table'][i][j] == ''){ -->
+										<b>Stop on request</b>
+									<!-- }else{  -->
+										<!-- if(data['table'][i][j] != null){
+											template += "<b>"+data["table"][i][j]+"</b>";
+										}else{  -->
+											<b>-</b>
+										<!-- } -->
+									<!-- } -->
+								</td>
+								<!-- } -->
+							</tr>
+							<!--}else{  -->
+							<tr  style="color: green;">
+								<td> <!-- template += (i+1) ; --> </td>
+								<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+								<td>
+									<!-- if(data['table'][i][j] == ''){ -->
+										<b>Stop on request</b>
+									<!-- }else{  -->
+										<!-- if(data['table'][i][j] != null){
+											template += '<b>'+data['table'][i][j]+'</b>';
+										}else{  -->
+											<b>-</b>
+										<!-- } -->
+									<!-- } -->
+								</td>
+								<!-- } -->
+							</tr>
+							<!-- } -->
+						<!-- } -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

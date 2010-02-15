@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+	<eteTemplate id="template">
+		<h2> 
+			<!-- template += data['caption']; --> 
+		</h2>
+		<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
+			<table class="tablesorter">
+				<thead><tr class="bubbleBoxTable"><th><b>No.</b></th><th><b>Distance (km):</b></th><th><b>Rating:</b></th><th><b>Address:</b></th><th><b>Jump</b></th><th><b>Directions</b></th></tr></thead>
+				<tbody>
+					<!--/* Any kind of embedded javascript is possible... */-->
+					<!-- for(var i = 0; i < data['table'].length; ++i){ -->
+						<tr>
+							<td> <!-- template += (i+1) ; --> </td>
+							<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+								<td>
+									<!-- if(data['table'][i][j] != '' && data['table'][i][j] != null){
+										template += data['table'][i][j];
+									}else{  -->
+										<b>Stop on request</b>
+									<!-- } -->
+								</td>
+							<!-- } -->
+						</tr>
+					<!-- } -->
+				</tbody>
+			</table>
+		</div>
+	</eteTemplate>
+	
+	<eteTemplate id="thirdTemplate">
+		<div>
+			<h2><!--template += data['caption'];--></h2>
+			<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
+				<table class="tablesorter">
+					<thead>
+						<tr class="bubbleBoxTable"><th><b>No.</b></th><th><b>Distance (km):</b></th><th><b>Rating:</b></th><th><b>Address:</b></th><th><b>Jump</b></th><th><b>Directions</b></th></tr>
+					</thead>
+					<tbody>
+						<!-- for(var i = 0; i < data['table'].length; ++i){ -->
+							<!-- if((i+1) % 2 == 0){ //Red color for every 2nd line...-->
+							<tr style="color:red">
+								<td> <!-- template += (i+1) ; --> </td>
+								<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+								<td>
+									<!-- if(data['table'][i][j] != '' && data['table'][i][j] != null){
+										template += data['table'][i][j];
+									}else{  -->
+										<b>Stop on request</b>
+									<!-- } -->
+								</td>
+								<!-- } -->
+							</tr>
+							<!--}else{  -->
+							<tr style="color:green">
+								<td> <!-- template += (i+1) ; --> </td>
+								<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+								<td>
+									<!-- if(data['table'][i][j] != '' && data['table'][i][j] != null){
+										template += data['table'][i][j];
+									}else{  -->
+										<b>Stop on request</b>
+									<!-- } -->
+								</td>
+								<!-- } -->
+							</tr>
+							<!-- } -->
+						<!-- } -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</eteTemplate>
+	
+	<eteTemplate id="fourthTemplate">
+		<div onclick="alert('#!-- if(data['caption'].length &gt; 0){ template+= data['caption']; }else{ template+= 'Empty caption!'; } --#');">
+			<h2> <!-- template += data['caption']; --> </h2>
+			<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
+				<table class="tablesorter">
+					<thead>
+						<tr class="bubbleBoxTable">
+						<!-- for(var i = 0; i < data['th'].length; ++i){ -->
+							<th><b><!--template += data['th'] [i]--></b></th>
+						<!-- } -->
+						</tr>
+					</thead>
+					<tbody>
+					<!-- for(var i = 0; i < data['table'].length; ++i){ -->
+						<!-- if((i+1) % 5 == 0){-->
+						<tr style="color: red;">
+							<td> <!-- template += (i+1) ; --> </td>
+							<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+							<td>
+								<!-- if(data['table'][i][j] == ''){ -->
+									<b>Stop on request</b>
+								<!-- }else{  -->
+									<!-- if(data['table'][i][j] != null){
+										template += "<b>"+data["table"][i][j]+"</b>";
+									}else{  -->
+										<b>-</b>
+									<!-- } -->
+								<!-- } -->
+							</td>
+							<!-- } -->
+						</tr>
+						<!--}else{  -->
+						<tr  style="color: green;">
+							<td> <!-- template += (i+1) ; --> </td>
+							<!-- for(var j = 0; j < data['table'][i].length; ++j){ -->
+							<td>
+								<!-- if(data['table'][i][j] == ''){ -->
+									<b>Stop on request</b>
+								<!-- }else{  -->
+									<!-- if(data['table'][i][j] != null){
+										template += '<b>'+data['table'][i][j]+'</b>';
+									}else{  -->
+										<b>-</b>
+									<!-- } -->
+								<!-- } -->
+							</td>
+							<!-- } -->
+						</tr>
+						<!-- } -->
+					<!-- } -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</eteTemplate>
+</templates>

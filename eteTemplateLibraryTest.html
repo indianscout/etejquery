@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="./jquery.ete.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//E.T. calls home and gets feeded with templates... he caches all templates all templates for later use (does not execute template functions)  because 'data' has been omitted (is null)...
+				jQuery.ajax({
+					url: 'template.xml',
+					dataType: 'html',
+					success: function(xmlData){
+						$(xmlData).find('eteTemplate').each(function(){
+							var templ = $(this).html();
+							$($(this).attr('id')).ete({
+								load: function(templateSelector){
+									return(templ.replace(/\n|\f|\r|\t|\v/g, ''));
+								}
+							});
+						});
+						
+						//1. E.T. call, execute a previously cached template...
+						//Note: in this case, the 'template' in $('template') ... is not an ordinary DOM selector, 
+						//it is the name of the template which correlates with the ID within the template.xml file.
+						var template = $('template').ete({
+							callbefore: function(){ 
+								$('#firstTarget').append('<img src="./processing.gif">');
+							},
+							callback: function(sel, template){ 
+								setTimeout("$('#firstTarget').replaceWith('"+template+"');", 2000);  //Display template with short delay, to demonstrate callBefore  and callback function...
+								return(template);
+							},
+							data: {	caption: '1. Space-Taxi Timetable (1.1.1982):',
+									table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+														new Array('Alan' 				,6			,''			,''			,''			,22		),
+														new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+														new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
+														new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
+							}
+						});
+						alert(template);
+						
+						//2. E.T. call, load template 2nd time from cache and feed with different data...
+						$('template').ete({
+							callback: function(sel, template){ $('#secondTarget').append(template); }, 
+							data: {	uselessStuff: '!!!UNREFERENCED/NOT USED VARIABLES WITHIN THE TEMPLATE WILL BE IGNORED!!!',
+									caption: '2. Space-Taxi Timetable (2.1.1982):',
+									table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+														new Array('Alan' 				,3			,''			,''			,''			,19		),
+														new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+														new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		))
+							}
+						});
+						
+						//3. E.T. call...
+						$('thirdTemplate').ete({
+							cache: true, //false makes no sens in this case, will fail if cache = false!
+							callback: function(sel, template){ $('#thirdTarget').replaceWith(template); },
+							data: {	caption: '3. Space-Taxi Timetable (3.1.1982):',
+									table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+														new Array('Alan' 				,6			,''			,''			,''			,22		),
+														new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+														new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
+														new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
+							}
+						});
+						
+						//4. E.T. call,  trigger ajax request and inject compiled template into DOM...
+						jQuery.ajax({
+							url: 'ete.json',
+							dataType: 'json',
+							success: function(ajaxData){
+								$('fourthTemplate').ete({
+									callback: function(sel, template){ $('#fourthTarget').replaceWith(template); },
+									debug: function(log){
+										if(log.majorSequenceNo == 7 && (log.minorSequenceNo == 1 || log.minorSequenceNo == 2)){ //Notify when sequence/step 6 (execute  template function...) has been reached...
+											var msg = log.message + '\n';
+											if(log.data)
+												msg += log.data;
+											alert(msg);
+										}
+									},
+									data: ajaxData
+								});
+							},
+							error: function(error){ alert('Error occured: '+error); } 
+						});
+					},
+					error: function(error){ alert('Error occured: '+error); } 
+				});
+			});
+		</script>
+	</head>
+
+	<body style="background:url(./et.jpg);background-attachment:fixed;background-repeat: no-repeat;">
+		<p id="firstTarget"></p>
+		
+		<p id="secondTarget"></p>
+		
+		<p id="thirdTarget"></p>
+		
+		<div id="fourthTarget" style="display:none"></div>
+	</body>
+</html>
