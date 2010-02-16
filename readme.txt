@@ -62,8 +62,8 @@ Configuring the ETE template engine
 		
 		data: 		null			The data you want to pass into ETE template engine. If data is null, ETE will compile and cache the template but not execute the template function.
 		
-		debug: 		null			If a debug handler is specefied (is not null) the custom debug handler will be executed before and after each sequence/step (see examples for further details). The debug function always receives an object of the following structure: { majorSequenceNo: 1, minorSequenceNo: 1, message: 'Internal template ID is:', data: templateId }
-									Handler-interface: 	function(templateId, options, templateFunction){ ... }
+		debug: 		null			If a debug handler is specefied (is not null) the custom debug handler will be executed before and after each sequence/step (see examples for further details). The debug function always receives a log object of the following structure: { majorSequenceNo: 1, minorSequenceNo: 1, message: 'Internal template ID is:', data: templateId }
+									Handler-interface: 	function(logObject){ ... }
 									Returns by default: nothing
 									
 		hash:		See source...	Creates a hash from the specified selector or template name.
@@ -417,7 +417,7 @@ If you are using ete.js, see eteStandaloneTest.html and eteStandaloneTemplateLib
 				var templ = $(this).html();
 				$($(this).attr('id')).ete({ //Note: we pass in the ID of the template as template name and not an ordinary selector! In order to access the compiled template, you have to know this name... You may also use another mechanism to label your template but keep in mind, the name must be unique. Otherwise ETE will ignore (will not cache) further templates with the same name!
 					load: function(templateSelector){
-						return(templ.replace(/\n|\f|\r|\t|\v/g, ''));
+						return(templ);
 					}
 				});
 			});

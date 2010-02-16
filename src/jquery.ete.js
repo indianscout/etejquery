@@ -1,5 +1,5 @@
 /**
-  * ETE v1.0 jQuery Plugin
+  * ETE v1.0.1 jQuery Plugin
   * Extensible Template Engine (ETE) is a simple but powerful javascript XML/XHTML template engine.
   * 
   * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -36,9 +36,10 @@
 							return(str.replace(/\s/g, '').replace(/#/g, '_ID_').replace(/>/g, '_CLD_').replace(/\./g, '_CLS_').replace(/\+/g, '_DEP_').replace(/~/g, '_SIB_').replace(/:/g, '_SEL_').replace(/-/g, '_MIN_').replace(/\*/g, '_MUL_').toUpperCase()); 
 						},
 			load: 		function(templateSelector){
-							return($(templateSelector).html().replace(/\n|\f|\r|\t|\v/g, ''));
+							return($(templateSelector).html());
 						},
 			parse: 		function(template){
+							template = template.replace(/\n|\f|\r|\t|\v/g, '');
 							var tokens = template.split(/<!-|-->|#!-|--#/g);
 							var templateBatch = [];
 							for(i = 0; i < tokens.length; i++){
@@ -99,7 +100,7 @@
 						
 						
 						/*
-						 * Execute callbackahndler...
+						 * Execute callback handler...
 						 */
 						options.debug({majorSequenceNo: 8, minorSequenceNo: 1, message: 'Execute callback handler:', data: options.callback});
 					
@@ -156,7 +157,7 @@
 							
 							
 							/*
-							 * Execute callbackahndler...
+							 * Execute callback handler...
 							 */
 							options.debug({majorSequenceNo: 8, minorSequenceNo: 1, message: 'Execute callback handler:', data: options.callback});
 						
@@ -214,7 +215,7 @@
 					options.debug({majorSequenceNo: 7, minorSequenceNo: 2, message: 'Function executed, function returned:', data: xmlString});
 					
 					/*
-					 * Execute callbackahndler...
+					 * Execute callback handler...
 					 */
 					options.debug({majorSequenceNo: 8, minorSequenceNo: 1, message: 'Execute callback handler:', data: options.callback});
 					

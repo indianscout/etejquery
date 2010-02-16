@@ -14,7 +14,7 @@
 							var templ = $(this).html();
 							$($(this).attr('id')).ete({
 								load: function(templateSelector){
-									return(templ.replace(/\n|\f|\r|\t|\v/g, ''));
+									return(templ);
 								}
 							});
 						});
