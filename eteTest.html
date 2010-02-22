@@ -7,11 +7,8 @@
 			$(document).ready(function(){
 				//1. E.T. call, template is not cached yet...
 				var templ = $('script#template').ete({
-					callbefore: function(){ 
-						$('#firstTarget').append('<img src="./processing.gif">');
-					},
 					callback: function(sel, template){ 
-						setTimeout("$('#firstTarget').replaceWith('"+template+"');", 2000);  //Display template with short delay, to demonstrate callBefore  and callback function...
+						$('#firstTarget').replaceWith(template);
 						return(template)				
 					}, 
 					data: {	caption: '1. Space-Taxi Timetable (1.1.1982):',
@@ -27,7 +24,7 @@
 				//2. E.T. call, load template from cache and feed with different data...
 				$('script#template').ete({
 					callback: function(sel, template){ $('#secondTarget').append(template); }, 
-					data: {	uselessStuff: '!!!UNREFERENCED/NOT USED VARIABLES WITHIN THE TEMPLATE WILL BE IGNORED!!!',
+					data: {	uselessStuff: '!!!UNREFERENCED/NOT USED VARIABLES WILL BE IGNORED!!!',
 							caption: '2. Space-Taxi Timetable (2.1.1982):',
 							table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
 												new Array('Alan' 				,3			,''			,''			,''			,19		),

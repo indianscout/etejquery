@@ -23,11 +23,8 @@
 						//Note: in this case, the 'template' in $('template') ... is not an ordinary DOM selector, 
 						//it is the name of the template which correlates with the ID within the template.xml file.
 						var template = $('template').ete({
-							callbefore: function(){ 
-								$('#firstTarget').append('<img src="./processing.gif">');
-							},
 							callback: function(sel, template){ 
-								setTimeout("$('#firstTarget').replaceWith('"+template+"');", 2000);  //Display template with short delay, to demonstrate callBefore  and callback function...
+								$('#firstTarget').replaceWith(template);
 								return(template);
 							},
 							data: {	caption: '1. Space-Taxi Timetable (1.1.1982):',
