@@ -1,6 +1,6 @@
 /**
-  * ETE v1.0.1 jQuery Plugin
-  * Extensible Template Engine (ETE) is a simple but powerful javascript XML/XHTML template engine.
+  * ETE v1.70 jQuery Plugin
+  * Extensible Template Engine (ETE) is a simple but powerful JavaScript XML/XHTML template engine.
   * 
   * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
   * and GPL (http://www.opensource.org/licenses/gpl-3.0.html).
@@ -26,7 +26,7 @@
   */
 
 (function($){  
-	$.fn.ete = function(options){		
+	$.fn.ete = function(options){
 		var defaults = {
 			namespace: 	'ETE_',
 			cache: 		true,
@@ -145,7 +145,7 @@
 						
 						options.debug({majorSequenceNo: 6, minorSequenceNo: 2, message: 'Function created and cached, result:', data: window[options.namespace + templateId]});
 						
-						if(options.data != null){ //If data is null, cach only...
+						if(options.data != null){ //If data is null, cache only...
 							/*
 							 * Execute  template function...
 							 */
@@ -236,7 +236,7 @@
 						var parsedTempl = options.parse(loadedTempl);
 						var compiledTempl = options.compile(options.namespace + templateId, parsedTempl);
 						window[options.namespace + templateId] = new Function('data', compiledTempl);
-						if(options.data != null){ //If data is null, cach only...
+						if(options.data != null){ //If data is null, cache only...
 							var xmlString = window[options.namespace + templateId](options.data);
 							return(options.callback(this.selector, xmlString));
 						}else
