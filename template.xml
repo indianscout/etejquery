@@ -4,9 +4,15 @@
 		<h2> 
 			<!-- template += data['caption']; --> 
 		</h2>
-		<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
-			<table class="tablesorter">
-				<thead><tr class="bubbleBoxTable"><th><b>No.</b></th><th><b>Distance (km):</b></th><th><b>Rating:</b></th><th><b>Address:</b></th><th><b>Jump</b></th><th><b>Directions</b></th></tr></thead>
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<!-- for(var i = 0; i < data['th'].length; ++i){ -->
+							<th><b><!--template += data['th'] [i]--></b></th>
+						<!-- } -->
+					</tr>
+				</thead>
 				<tbody>
 					<!--/* Any kind of embedded javascript is possible... */-->
 					<!-- for(var i = 0; i < data['table'].length; ++i){ -->
@@ -31,10 +37,14 @@
 	<eteTemplate id="thirdTemplate">
 		<div>
 			<h2><!--template += data['caption'];--></h2>
-			<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
-				<table class="tablesorter">
+			<div>
+				<table>
 					<thead>
-						<tr class="bubbleBoxTable"><th><b>No.</b></th><th><b>Distance (km):</b></th><th><b>Rating:</b></th><th><b>Address:</b></th><th><b>Jump</b></th><th><b>Directions</b></th></tr>
+						<tr>
+							<!-- for(var i = 0; i < data['th'].length; ++i){ -->
+								<th><b><!--template += data['th'] [i]--></b></th>
+							<!-- } -->
+						</tr>
 					</thead>
 					<tbody>
 						<!-- for(var i = 0; i < data['table'].length; ++i){ -->
@@ -75,10 +85,10 @@
 	<eteTemplate id="fourthTemplate">
 		<div onclick="alert('#!-- if(data['caption'].length &gt; 0){ template+= data['caption']; }else{ template+= 'Empty caption!'; } --#');">
 			<h2> <!-- template += data['caption']; --> </h2>
-			<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
-				<table class="tablesorter">
+			<div>
+				<table>
 					<thead>
-						<tr class="bubbleBoxTable">
+						<tr>
 						<!-- for(var i = 0; i < data['th'].length; ++i){ -->
 							<th><b><!--template += data['th'] [i]--></b></th>
 						<!-- } -->

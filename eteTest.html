@@ -11,12 +11,13 @@
 						$('#firstTarget').replaceWith(template);
 						return(template)				
 					}, 
-					data: {	caption: '1. Space-Taxi Timetable (1.1.1982):',
-							table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
-												new Array('Alan' 				,6			,''			,''			,''			,22		),
-												new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
-												new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
-												new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
+					data: {	
+						caption: '1. Space-Taxi Timetable (1.1.1982):',
+						th:		new Array(	'Space-Taxi' 					,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+						table: 	new Array(	new Array('Alan' 				,6			,''			,''			,''			,22		),
+											new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+											new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
+											new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
 					}
 				});
 				alert(templ);
@@ -24,24 +25,26 @@
 				//2. E.T. call, load template from cache and feed with different data...
 				$('script#template').ete({
 					callback: function(sel, template){ $('#secondTarget').append(template); }, 
-					data: {	uselessStuff: '!!!UNREFERENCED/NOT USED VARIABLES WILL BE IGNORED!!!',
-							caption: '2. Space-Taxi Timetable (2.1.1982):',
-							table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
-												new Array('Alan' 				,3			,''			,''			,''			,19		),
-												new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
-												new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		))
+					data: {	
+						uselessStuff: 	'!!!UNREFERENCED/NOT USED VARIABLES WILL BE IGNORED!!!',
+						caption: 		'2. Space-Taxi Timetable (2.1.1982):',
+						th: 			new Array(	'Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+						table: 			new Array(	new Array('Alan' 				,3			,''			,''			,''			,19		),
+													new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+													new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		))
 					}
 				});
 				
 				//3. E.T. call,  do not cache compiled template...
 				$('#thirdTarget').ete({
 					cache: false,
-					data: {	caption: '3. Space-Taxi Timetable (3.1.1982):',
-							table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
-												new Array('Alan' 				,6			,''			,''			,''			,22		),
-												new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
-												new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
-												new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
+					data: {	
+						caption: '3. Space-Taxi Timetable (3.1.1982):',
+						th:		new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+						table: 	new Array(	new Array('Alan' 				,6			,''			,''			,''			,22		),
+											new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+											new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
+											new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
 					}
 				});
 				
@@ -71,9 +74,15 @@
 			<h2> 
 				<!-- template += data['caption']; --> 
 			</h2>
-			<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
-				<table class="tablesorter">
-					<thead><tr class="bubbleBoxTable"><th><b>No.</b></th><th><b>Distance (km):</b></th><th><b>Rating:</b></th><th><b>Address:</b></th><th><b>Jump</b></th><th><b>Directions</b></th></tr></thead>
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<!-- for(var i = 0; i < data['th'].length; ++i){ -->
+								<th><b><!--template += data['th'] [i]--></b></th>
+							<!-- } -->
+						</tr>
+					</thead>
 					<tbody>
 						<!--/* Any kind of embedded javascript is possible... */-->
 						<!-- for(var i = 0; i < data['table'].length; ++i){ -->
@@ -104,10 +113,14 @@
 		<script type="text/xml" id="thirdTarget">
 			<div>
 				<h2><!--template += data['caption'];--></h2>
-				<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
-					<table class="tablesorter">
+				<div>
+					<table>
 						<thead>
-							<tr class="bubbleBoxTable"><th><b>No.</b></th><th><b>Distance (km):</b></th><th><b>Rating:</b></th><th><b>Address:</b></th><th><b>Jump</b></th><th><b>Directions</b></th></tr>
+							<tr>
+							<!-- for(var i = 0; i < data['th'].length; ++i){ -->
+								<th><b><!--template += data['th'] [i]--></b></th>
+							<!-- } -->
+							</tr>
 						</thead>
 						<tbody>
 							<!-- for(var i = 0; i < data['table'].length; ++i){ -->
@@ -148,10 +161,10 @@
 		<div id="fourthTarget" style="display:none">
 			<div onclick="alert('#!-- if(data['caption'].length &gt; 0){ template+= data['caption']; }else{ template+= 'Empty caption!'; } --#');">
 				<h2> <!-- template += data['caption']; --> </h2>
-				<div id="magnifierNeighborSpots" class="neighborSpots ui-state-highlight ui-corner-all bubbleBox">
-					<table class="tablesorter">
+				<div>
+					<table>
 						<thead>
-							<tr class="bubbleBoxTable">
+							<tr>
 							<!-- for(var i = 0; i < data['th'].length; ++i){ -->
 								<th><b><!--template += data['th'] [i]--></b></th>
 							<!-- } -->

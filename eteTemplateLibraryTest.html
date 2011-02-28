@@ -27,12 +27,13 @@
 								$('#firstTarget').replaceWith(template);
 								return(template);
 							},
-							data: {	caption: '1. Space-Taxi Timetable (1.1.1982):',
-									table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
-														new Array('Alan' 				,6			,''			,''			,''			,22		),
-														new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
-														new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
-														new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
+							data: {	
+								caption: '1. Space-Taxi Timetable (1.1.1982):',
+								th:		new Array(	'Space-Taxi' 					,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+								table: 	new Array(	new Array('Alan' 				,6			,''			,''			,''			,22		),
+													new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+													new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
+													new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
 							}
 						});
 						alert(template);
@@ -40,12 +41,13 @@
 						//2. E.T. call, load template 2nd time from cache and feed with different data...
 						$('template').ete({
 							callback: function(sel, template){ $('#secondTarget').append(template); }, 
-							data: {	uselessStuff: '!!!UNREFERENCED/NOT USED VARIABLES WITHIN THE TEMPLATE WILL BE IGNORED!!!',
-									caption: '2. Space-Taxi Timetable (2.1.1982):',
-									table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
-														new Array('Alan' 				,3			,''			,''			,''			,19		),
-														new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
-														new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		))
+							data: {	
+								uselessStuff: '!!!UNREFERENCED/NOT USED VARIABLES WITHIN THE TEMPLATE WILL BE IGNORED!!!',
+								caption: '2. Space-Taxi Timetable (2.1.1982):',
+								th: 				new Array(	'Space-Taxi' 		,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+								table: new Array(	new Array('Alan' 				,3			,''			,''			,''			,19		),
+													new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+													new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		))
 							}
 						});
 						
@@ -53,12 +55,13 @@
 						$('thirdTemplate').ete({
 							cache: true, //false makes no sens in this case, will fail if cache = false!
 							callback: function(sel, template){ $('#thirdTarget').replaceWith(template); },
-							data: {	caption: '3. Space-Taxi Timetable (3.1.1982):',
-									table: new Array(	new Array('Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
-														new Array('Alan' 				,6			,''			,''			,''			,22		),
-														new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
-														new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
-														new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
+							data: {	
+								caption: '3. Space-Taxi Timetable (3.1.1982):',
+								th: 				new Array(	'Space-Taxi' 			,'Neptun'	,'Uranus'	,'Saturn'	,'Jupiter'	,'Earth'),
+								table: new Array(	new Array('Alan' 				,6			,''			,''			,''			,22		),
+													new Array('Ida' 				,12 		,15			,'17:30'	,18			,20		),
+													new Array('Enterprise' 			,8			,'9:30'		,'10:30'	,11			,12		),
+													new Array('Clingonian spaceship' ,16 		,'17:30'	,''			,19			,null	))
 							}
 						});
 						
