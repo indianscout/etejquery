@@ -1,5 +1,5 @@
 /**
-  * ETE v1.70 jQuery Plugin
+  * ETE v1.7.2 jQuery Plugin
   * Extensible Template Engine (ETE) is a simple but powerful JavaScript XML/XHTML template engine.
   * 
   * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -76,7 +76,7 @@
 		
 		if(options.debug){
 			if(templateId != ''){
-				options.debug({majorSequenceNo: 1, minorSequenceNo: 1, message: 'Internal template ID is:', data: options.namespace + templateId});
+				options.debug({majorSequenceNo: 1, minorSequenceNo: 1, message: 'Internal template ID is:', data: defaults.namespace + templateId});
 				
 				if(options.callbefore != null){
 					options.debug({majorSequenceNo: 2, minorSequenceNo: 1, message: 'Execute callbefore', data: options.callbefore});
@@ -88,13 +88,13 @@
 					options.debug({majorSequenceNo: 2, minorSequenceNo: 1, message: 'Callbefore is null', data: null});
 				
 				if(options.cache){					
-					if(window[options.namespace + templateId] != null){ //Templete cached...
+					if($.fn.ete[defaults.namespace + templateId]){ //Templete cached...
 						/*
 						 * Execute  template function...
 						 */
-						options.debug({majorSequenceNo: 7, minorSequenceNo: 1, message: 'Execute cached function:', data: window[options.namespace + templateId]});
+						options.debug({majorSequenceNo: 7, minorSequenceNo: 1, message: 'Execute cached function:', data: $.fn.ete[defaults.namespace + templateId]});
 						
-						var xmlString = window[options.namespace + templateId](options.data);
+						var xmlString = $.fn.ete[defaults.namespace + templateId](options.data);
 						
 						options.debug({majorSequenceNo: 7, minorSequenceNo: 2, message: 'Cached function executed, function returned:', data: xmlString});
 						
@@ -131,7 +131,7 @@
 						 */
 						options.debug({majorSequenceNo: 5, minorSequenceNo: 1, message: 'Start compiling', data: null});
 						
-						var compiledTempl = options.compile(options.namespace + templateId, parsedTempl);
+						var compiledTempl = options.compile(templateId, parsedTempl);
 						
 						options.debug({majorSequenceNo: 5, minorSequenceNo: 2, message: 'Compiling finished, result:', data: compiledTempl});
 						
@@ -141,17 +141,17 @@
 						 */
 						options.debug({majorSequenceNo: 6, minorSequenceNo: 1, message: 'Create function and cache', data: null});
 						
-						window[options.namespace + templateId] = new Function('data', compiledTempl);
+						$.fn.ete[defaults.namespace + templateId] = new Function('data', compiledTempl);
 						
-						options.debug({majorSequenceNo: 6, minorSequenceNo: 2, message: 'Function created and cached, result:', data: window[options.namespace + templateId]});
+						options.debug({majorSequenceNo: 6, minorSequenceNo: 2, message: 'Function created and cached, result:', data: $.fn.ete[defaults.namespace + templateId]});
 						
 						if(options.data != null){ //If data is null, cache only...
 							/*
 							 * Execute  template function...
 							 */
-							options.debug({majorSequenceNo: 7, minorSequenceNo: 1, message: 'Execute cached function:', data: window[options.namespace + templateId]});
+							options.debug({majorSequenceNo: 7, minorSequenceNo: 1, message: 'Execute cached function:', data: $.fn.ete[defaults.namespace + templateId]});
 							
-							var xmlString = window[options.namespace + templateId](options.data);
+							var xmlString = $.fn.ete[defaults.namespace + templateId](options.data);
 							
 							options.debug({majorSequenceNo: 7, minorSequenceNo: 2, message: 'Cached function executed, function returned:', data: xmlString});
 							
@@ -191,7 +191,7 @@
 					 */
 					options.debug({majorSequenceNo: 5, minorSequenceNo: 1, message: 'Start compiling', data: null});
 					
-					var compiledTempl = options.compile(options.namespace + templateId, parsedTempl);
+					var compiledTempl = options.compile(templateId, parsedTempl);
 					
 					options.debug({majorSequenceNo: 5, minorSequenceNo: 2, message: 'Compiling finished, result:', data: compiledTempl});
 					
@@ -228,16 +228,16 @@
 				if(options.callbefore != null){ options.callbefore(this.selector, options); }
 				
 				if(options.cache){
-					if(window[options.namespace + templateId] != null){ //Templete cached...
-						var xmlString = window[options.namespace + templateId](options.data);
+					if($.fn.ete[defaults.namespace + templateId]){ //Templete cached...
+						var xmlString = $.fn.ete[defaults.namespace + templateId](options.data);
 						return(options.callback(this.selector, xmlString));
 					}else{ //Compile template and cache...
 						var loadedTempl = options.load(this.selector);
 						var parsedTempl = options.parse(loadedTempl);
-						var compiledTempl = options.compile(options.namespace + templateId, parsedTempl);
-						window[options.namespace + templateId] = new Function('data', compiledTempl);
+						var compiledTempl = options.compile(templateId, parsedTempl);
+						$.fn.ete[defaults.namespace + templateId] = new Function('data', compiledTempl);
 						if(options.data != null){ //If data is null, cache only...
-							var xmlString = window[options.namespace + templateId](options.data);
+							var xmlString = $.fn.ete[defaults.namespace + templateId](options.data);
 							return(options.callback(this.selector, xmlString));
 						}else
 							return;
@@ -245,7 +245,7 @@
 				}else{ //Do not cache template...
 					var loadedTempl = options.load(this.selector);
 					var parsedTempl = options.parse(loadedTempl);
-					var compiledTempl = options.compile(options.namespace + templateId, parsedTempl);
+					var compiledTempl = options.compile(templateId, parsedTempl);
 					var func = new Function('data', compiledTempl);
 					var xmlString = func(options.data);
 					return(options.callback(this.selector, xmlString));
