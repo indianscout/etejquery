@@ -1,5 +1,5 @@
 /**
-  * ETE v1.7.2 jQuery Plugin
+  * ETE v1.7.3 jQuery Plugin
   * Extensible Template Engine (ETE) is a simple but powerful JavaScript XML/XHTML template engine.
   * 
   * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
