@@ -30,7 +30,7 @@
 		var defaults = {
 			namespace: 	'ETE_',
 			cache: 		true,
-			data : 		null,
+			data: 		null,
 			callbefore: null,
 			hash:		function(str){
 							return(str.replace(/\s/g, '').replace(/#/g, '_ID_').replace(/>/g, '_CLD_').replace(/\./g, '_CLS_').replace(/\+/g, '_DEP_').replace(/~/g, '_SIB_').replace(/:/g, '_SEL_').replace(/-/g, '_MIN_').replace(/\*/g, '_MUL_').toUpperCase()); 
@@ -145,7 +145,7 @@
 						
 						options.debug({majorSequenceNo: 6, minorSequenceNo: 2, message: 'Function created and cached, result:', data: $.fn.ete[defaults.namespace + templateId]});
 						
-						if(options.data != null){ //If data is null, cache only...
+						//if(options.data != null){ //If data is null, cache only...
 							/*
 							 * Execute  template function...
 							 */
@@ -162,8 +162,8 @@
 							options.debug({majorSequenceNo: 8, minorSequenceNo: 1, message: 'Execute callback handler:', data: options.callback});
 						
 							return(options.callback(this.selector, xmlString));
-						}else
-							return;
+						//}else
+						//	return;
 					}
 				}else{ //Do not cache template...
 					/*
@@ -236,11 +236,11 @@
 						var parsedTempl = options.parse(loadedTempl);
 						var compiledTempl = options.compile(templateId, parsedTempl);
 						$.fn.ete[defaults.namespace + templateId] = new Function('data', compiledTempl);
-						if(options.data != null){ //If data is null, cache only...
+						//if(options.data != null){ //If data is null, cache only...
 							var xmlString = $.fn.ete[defaults.namespace + templateId](options.data);
 							return(options.callback(this.selector, xmlString));
-						}else
-							return;
+						//}else
+						//	return;
 					}
 				}else{ //Do not cache template...
 					var loadedTempl = options.load(this.selector);
