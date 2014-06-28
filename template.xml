@@ -8,6 +8,7 @@
 			<table>
 				<thead>
 					<tr>
+						<th>#</th>
 						<!-- for(var i = 0; i < data['th'].length; ++i){ -->
 							<th><b><!--template += data['th'] [i]--></b></th>
 						<!-- } -->
@@ -41,6 +42,7 @@
 				<table>
 					<thead>
 						<tr>
+							<th>#</th>
 							<!-- for(var i = 0; i < data['th'].length; ++i){ -->
 								<th><b><!--template += data['th'] [i]--></b></th>
 							<!-- } -->
@@ -89,9 +91,10 @@
 				<table>
 					<thead>
 						<tr>
-						<!-- for(var i = 0; i < data['th'].length; ++i){ -->
-							<th><b><!--template += data['th'] [i]--></b></th>
-						<!-- } -->
+							<th>#</th>
+							<!-- for(var i = 0; i < data['th'].length; ++i){ -->
+								<th><b><!--template += data['th'] [i]--></b></th>
+							<!-- } -->
 						</tr>
 					</thead>
 					<tbody>
