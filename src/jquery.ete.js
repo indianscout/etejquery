@@ -40,7 +40,7 @@
 			},
 			parse: function(template){
 				template = template.replace(/\n|\f|\r|\t|\v/g, '');
-				var tokens = template.split(/(<%)|(%>)|(#%)|(%#)/g).filter(function(n){ return n != undefined && n != ''; });
+				var tokens = template.split(/(<%)|(%>)|(#%)|(%#)/g).filter(function(n){ return n !== undefined && !/^\s*$/.test(n); });
 				var templBatch = [];
 				for(var i = 0, codeBlock = false; i < tokens.length; i++){
 					if(tokens[i].match(/(<%)|(#%)/g)){
