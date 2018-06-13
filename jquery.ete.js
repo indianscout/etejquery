@@ -1,1 +1,137 @@
-(function(a){a.fn.ete=function(c){var j={namespace:"ETE_",cache:true,data:null,callbefore:null,hash:function(k){return(k.replace(/\s/g,"").replace(/#/g,"_ID_").replace(/>/g,"_CLD_").replace(/\./g,"_CLS_").replace(/\+/g,"_DEP_").replace(/~/g,"_SIB_").replace(/:/g,"_SEL_").replace(/-/g,"_MIN_").replace(/\*/g,"_MUL_").toUpperCase())},load:function(k){return(a(k).html())},parse:function(m){m=m.replace(/\n|\f|\r|\t|\v/g,"");var o=m.split(/(<%)|(%>)|(#%)|(%#)/g).filter(function(p){return p!==undefined&&!/^\s*$/.test(p)});var n=[];for(var l=0,k=false;l<o.length;l++){if(o[l].match(/(<%)|(#%)/g)){k=true;n.push([true,o[++l]])}else{if(k&&o[l].match(/(%>)|(%#)/g)){k=false}else{n.push([false,o[l].replace(/'/g,"\\'")])}}}return(n)},compile:function(m,l){var k="var template = ''; ";for(i=0;i<l.length;i++){if(l[i][0]){if(l[i][1].match(/^=/g)){k+="template +"+l[i][1].replace(/"/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&apos;/g,"'")+"\n"}else{if(l[i][1].match(/^#/g)){k+='template += "<!-- '+l[i][1].substr(1)+' -->"\n'}else{k+=l[i][1].replace(/"/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&apos;/g,"'")+"\n"}}}else{k+="template += '"+l[i][1]+"';\n"}}k+="return(template);";return(k)},callback:function(l,k){a(l).replaceWith(k)},debug:null};var c=jQuery.extend(j,c);var e=c.hash(this.selector);if(c.debug){if(e!=""){c.debug({majorSequenceNo:1,minorSequenceNo:1,message:"Internal template ID is:",data:j.namespace+e});if(c.callbefore){c.debug({majorSequenceNo:2,minorSequenceNo:1,message:"Execute callbefore",data:c.callbefore});c.callbefore(this.selector,c);c.debug({majorSequenceNo:2,minorSequenceNo:2,message:"Callbefore executed",data:null})}else{c.debug({majorSequenceNo:2,minorSequenceNo:1,message:"Callbefore is null",data:null})}if(c.cache){if(a.fn.ete[j.namespace+e]){c.debug({majorSequenceNo:7,minorSequenceNo:1,message:"Execute cached function:",data:a.fn.ete[j.namespace+e]});var h=a.fn.ete[j.namespace+e](c.data);c.debug({majorSequenceNo:7,minorSequenceNo:2,message:"Cached function executed, function returned:",data:h});c.debug({majorSequenceNo:8,minorSequenceNo:1,message:"Execute callback handler:",data:c.callback});return(c.callback(this.selector,h))}else{c.debug({majorSequenceNo:3,minorSequenceNo:1,message:"Start loading",data:null});var g=c.load(this.selector);c.debug({majorSequenceNo:3,minorSequenceNo:2,message:"Loading finished, result:",data:g});c.debug({majorSequenceNo:4,minorSequenceNo:1,message:"Start parsing",data:null});var b=c.parse(g);c.debug({majorSequenceNo:4,minorSequenceNo:2,message:"Parsing finished, result:",data:b});c.debug({majorSequenceNo:5,minorSequenceNo:1,message:"Start compiling",data:null});var d=c.compile(e,b);c.debug({majorSequenceNo:5,minorSequenceNo:2,message:"Compiling finished, result:",data:d});c.debug({majorSequenceNo:6,minorSequenceNo:1,message:"Create function and cache",data:null});a.fn.ete[j.namespace+e]=new Function("data",d);c.debug({majorSequenceNo:6,minorSequenceNo:2,message:"Function created and cached, result:",data:a.fn.ete[j.namespace+e]});c.debug({majorSequenceNo:7,minorSequenceNo:1,message:"Execute cached function:",data:a.fn.ete[j.namespace+e]});var h=a.fn.ete[j.namespace+e](c.data);c.debug({majorSequenceNo:7,minorSequenceNo:2,message:"Cached function executed, function returned:",data:h});c.debug({majorSequenceNo:8,minorSequenceNo:1,message:"Execute callback handler:",data:c.callback});return(c.callback(this.selector,h))}}else{c.debug({majorSequenceNo:3,minorSequenceNo:1,message:"Start loading",data:null});var g=c.load(this.selector);c.debug({majorSequenceNo:3,minorSequenceNo:2,message:"Loading finished, result:",data:g});c.debug({majorSequenceNo:4,minorSequenceNo:1,message:"Start parsing",data:null});var b=c.parse(g);c.debug({majorSequenceNo:4,minorSequenceNo:2,message:"Parsing finished, result:",data:b});c.debug({majorSequenceNo:5,minorSequenceNo:1,message:"Start compiling",data:null});var d=c.compile(e,b);c.debug({majorSequenceNo:5,minorSequenceNo:2,message:"Compiling finished, result:",data:d});c.debug({majorSequenceNo:6,minorSequenceNo:1,message:"Create function",data:null});var f=new Function("data",d);c.debug({majorSequenceNo:6,minorSequenceNo:2,message:"Function created, result:",data:f});c.debug({majorSequenceNo:7,minorSequenceNo:1,message:"Execute function:",data:f});var h=f(c.data);c.debug({majorSequenceNo:7,minorSequenceNo:2,message:"Function executed, function returned:",data:h});c.debug({majorSequenceNo:8,minorSequenceNo:1,message:"Execute callback handler:",data:c.callback});return(c.callback(this.selector,h))}}else{c.debug({majorSequenceNo:1,minorSequenceNo:1,message:"Template ID is empty",data:null})}}else{if(e!=""){if(c.callbefore){c.callbefore(this.selector,c)}if(c.cache){if(a.fn.ete[j.namespace+e]){var h=a.fn.ete[j.namespace+e](c.data);return(c.callback(this.selector,h))}else{var g=c.load(this.selector);var b=c.parse(g);var d=c.compile(e,b);a.fn.ete[j.namespace+e]=new Function("data",d);var h=a.fn.ete[j.namespace+e](c.data);return(c.callback(this.selector,h))}}else{var g=c.load(this.selector);var b=c.parse(g);var d=c.compile(e,b);var f=new Function("data",d);var h=f(c.data);return(c.callback(this.selector,h))}}}}})(jQuery);
+/**
+  * ETE v2.0.0 jQuery Plugin
+  * Extensible Template Engine (ETE) is a simple but powerful JavaScript XML/XHTML template engine.
+  * 
+  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+  * and GPL (http://www.opensource.org/licenses/gpl-3.0.html).
+  *
+  *  Dependencies:
+  *   - jquery.js jQuery Core Plugin
+  *
+  *   Copyright (c) 2010 Koller Oliver (spotwizard.org)
+  *   Permission is hereby granted, free of charge, to any person obtaining a copy
+  *   of this software and associated documentation files (the "Software"), to deal
+  *   in the Software without restriction, including without limitation the rights
+  *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  *   copies of the Software, and to permit persons to whom the Software is
+  *   furnished to do so, subject to the following conditions:
+  *   
+  *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  *   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  *   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  *   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  *   THE SOFTWARE.
+  */
+
+(function($){
+	$.fn.ete = function(options){
+		var defaults = {
+			data: {},
+			callbefore: null,
+			path: function(node){
+				var path;
+				while(node.length){
+					var realNode = node[0], name = realNode.localName;
+					if (!name) break;
+					name = name.toLowerCase();
+
+					var parent = node.parent();
+
+					var sameTagSiblings = parent.children(name);
+					if (sameTagSiblings.length > 1) { 
+						allSiblings = parent.children();
+						var index = allSiblings.index(realNode) + 1;
+						if (index > 1) {
+							name += ':nth-child(' + index + ')';
+						}
+					}
+
+					path = name + (path ? '>' + path : '');
+					node = parent;
+				}
+				
+				var id = node.attr('id');
+				var classes = node.attr('class');
+				if(id && id !== ''){
+					return(path + '#' + id);
+				}else if(classes && classes !== ''){
+					var cls = classes.split(' ');
+					
+					for(var c in cls){
+						path += '.' + cls[c];
+					}
+					
+					return(path);
+				}else{
+					return(path);
+				}
+			},
+			load: function(templateSelector){
+				return($(templateSelector).html());
+			},
+			parse: function(template){
+				template = template.replace(/\n|\f|\r|\t|\v/g, '');
+				var tokens = template.split(/(<%)|(%>)|(#%)|(%#)/g).filter(function(n){ return n !== undefined && !/^\s*$/.test(n); });
+				var templBatch = [];
+				for(var i = 0, codeBlock = false; i < tokens.length; i++){
+					if(tokens[i].match(/(<%)|(#%)/g)){
+						codeBlock = true;
+						templBatch.push([ true, tokens[++i] ]);
+					}else if(codeBlock && tokens[i].match(/(%>)|(%#)/g)){
+						codeBlock = false;
+					}else{
+                        templBatch.push([ false, tokens[i].replace(/'/g, "\\'") ]);
+					}
+				}
+				
+				return(templBatch);
+			},
+			compile: function(funcName,templBatch){
+				var funcBody = "var template = ''; ";
+				
+				for(var i = 0; i < templBatch.length; i++){
+					if(templBatch[i][0]){
+						if(templBatch[i][1].match(/^=/g)){
+							funcBody += 'template +' + templBatch[i][1].replace(/"/g, '\'').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'") + '\n';
+						}else if(templBatch[i][1].match(/^#/g)){
+							funcBody += 'template += "<!-- ' + templBatch[i][1].substr(1) + ' -->"\n';
+						}else{
+							funcBody += templBatch[i][1].replace(/"/g, '\'').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'") + '\n';
+						}
+					}else{
+						funcBody += "template += '" + templBatch[i][1] + "';\n";
+					}
+				}
+
+				funcBody += 'return(template);';
+
+				return(funcBody);
+			},
+			callback: function(templateSelector, compiledTemplate){
+				$(templateSelector).replaceWith(compiledTemplate);
+			},
+			debug: null
+		};
+
+		options = jQuery.extend(defaults, options);
+
+		var selector = options.path(this);
+		if(selector){
+			if(options.callbefore){ options.callbefore(options); }
+
+			if($.fn.ete[selector]){
+				var xmlString = $.fn.ete[selector](options.data);
+				return(options.callback(xmlString));
+			}else{
+				var loadedTempl = this.html();
+				var parsedTempl = options.parse(loadedTempl);
+				var compiledTempl = options.compile(selector, parsedTempl);
+				$.fn.ete[selector] = new Function('data', compiledTempl);
+				var xmlString = $.fn.ete[selector](options.data);
+				return(options.callback(xmlString));
+			}
+		}
+	};
+})(jQuery);
